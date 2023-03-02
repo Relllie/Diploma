@@ -1,0 +1,58 @@
+﻿@using WebProject.Domain.Models
+@model IEnumerable<User>
+
+<h2>Список пользователей</h2>
+
+<form asp-action="ListOfUsers" asp-controller="Profile" asp-anti-forgery="true">
+    <script type="text/javascript">
+        var y = document.getElementById("txtHiddenUname");
+        y.Hidden = true;
+    </script>
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div id="NoConfirm_btn" runat="server">
+        @{ bool a = false;
+            foreach (User u in Model)
+            {
+                if (u.ConfirmedStudentId != a)
+                {
+                    a = true;
+                }
+            }
+            if (a)
+            {
+                <a asp-action="ListOfUsers" asp-controller="Profile" class="btn btn-lg btn-primary" asp-route-search="Confirm">Пользователи без подвертждения</a>
+            }
+            else
+            {
+                <a asp-action="ListOfUsers" asp-controller="Profile" class="btn btn-lg btn-primary">Все пользователи</a>
+            }
+        }
+    </div>
+    <br />
+    @foreach (User u in Model)
+    {
+        <a asp-action="ChangeUser" asp-controller="Profile" class="btn" asp-route-userId="@u.UserId">
+            <table>
+                <tr>
+                    <td>
+                        @if (u.AvatarPath != null)
+                        {
+                        <img class="bg-transparent" style="height: 75px; width: 75px; border-radius: 50%;"  src="@Url.Content(u.AvatarPath)" width="75" runat="server">
+                        }
+                        else
+                        {
+                            <img class="bg-transparent" src="~/Avatars/StandartAvatar.png" width="75" runat="server">
+                        }
+                    </td>
+
+                    <td style="text-align:left">
+                        <label style="text-align:left;padding-left:5px">Фамилия: @u.SurName</label><br>
+                        <label style="text-align:left;padding-left:5px">Имя: @u.Name</label><br>
+                        <label style="text-align:left;padding-left:5px">Почта: @u.Email</label>
+
+                    </td>
+                </tr>
+            </table>
+        </a>
+    }
+</form>

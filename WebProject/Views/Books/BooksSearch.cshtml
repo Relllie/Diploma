@@ -1,0 +1,28 @@
+﻿@using WebProject.Domain.Models.Books
+@model IEnumerable<Book>
+
+<form asp-action="BooksSearch" asp-controller="Books" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <input type="search" name="searchText" class="form-control-lg" placeholder="Поиск" /><button asp-controller="Books" asp-action="BooksSearch" value="Добавить" class="btn btn-lg btn-primary" >Искать</button>
+    @if (Model != null)
+    {
+        @foreach (Book b in Model)
+        {
+            <a asp-action="Book" asp-controller="Books" asp-route-bookID="@b.BookId">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="@Url.Content(b.BookCoverPath)" width="100">
+                        </td>
+                        <td>
+                            <div>Название: @b.BookTitle</div>
+                            <div>Автор: @b.BookAuthor</div>
+                            <div>Жанр: @b.Genre.GenreName</div>
+                        </td>
+                    </tr>
+                </table>
+            </a>
+            <br />
+        }
+    }
+</form>

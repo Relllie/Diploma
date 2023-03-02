@@ -1,0 +1,69 @@
+﻿@model WebProject.Models.UserInfo
+
+<form asp-action="ChangeUser" asp-controller="Profile" asp-anti-forgery="true" enctype="multipart/form-data">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div>
+            <input type="text" asp-for="UserId" value="@Model.UserId" hidden />
+            <span asp-validation-for="UserId" />
+        </div>
+        <div>
+            <label asp-for="SurName" class="col-form-label-lg">Фамилия</label><br />
+            <input type="text" asp-for="SurName" class="form-control-lg" value="@Model.SurName" />
+            <span asp-validation-for="SurName" />
+        </div>
+        <div>
+            <label asp-for="Name" class="col-form-label-lg">Имя</label><br />
+            <input type="text" asp-for="Name" class="form-control-lg" value="@Model.Name" />
+            <span asp-validation-for="Name" />
+        </div>
+        @if (Model.MiddleName != null)
+        {
+            <div>
+                <label asp-for="MiddleName" class="col-form-label-lg">Отчество</label><br />
+                <input type="text" asp-for="MiddleName" class="form-control-lg" value="@Model.MiddleName" />
+                <span asp-validation-for="MiddleName" />
+            </div>
+        }
+        <div>
+            <label asp-for="StudentIDNumber" class="col-form-label-lg">Номер студенческого билета</label><br />
+            <input type="text" asp-for="StudentIDNumber" class="form-control-lg" value="@Model.StudentIDNumber" />
+            <span asp-validation-for="StudentIDNumber" />
+        </div>
+        <div>
+            <label asp-for="ConfirmedStudentId" class="col-form-label-lg">Подтверждение студенческого билета</label><br />
+            <input type="checkbox" asp-for="ConfirmedStudentId" class="form-control-sm col-lg-1 form-control" />
+            <span asp-validation-for="ConfirmedStudentId" />
+        </div>
+        <div>
+            <label asp-for="Email" class="col-form-label-lg">Email</label><br />
+            <input type="text" asp-for="Email" class="form-control-lg" value="@Model.Email" />
+            <span asp-validation-for="Email" />
+        </div>
+        <div>
+            <label asp-for="Avatar" class="col-form-label-lg">Аватар</label><br />
+            <input asp-for="Avatar" type="file" class="form-control-file" onchange="readURL(this);" />
+            <span asp-validation-for="Avatar" />
+            <img class="img-thumbnail" id="avatar" width="150" src="@Url.Content(Model.AvatarPath)" />
+        </div>
+        <div>
+            <label asp-for="UserRoles" class="col-form-label-lg">Роли</label><br />
+            @foreach (var role in Model.UserRoles)
+            {
+                <div>
+                    <input type="text" id="userRoleId" asp-for="UserRoles" class="form-control-lg" value="@role.Role.RoleName" disabled />
+                    <span asp-validation-for="UserRoles" />
+                </div>
+            }
+            <br />
+            @*<a asp-action="ChangeRoles" asp-controller="Profile" class="btn btn-lg btn-primary" asp-route-userId="@Model.UserId">Изменить роли</a>*@
+            @*<a asp-action="DeleteUser" asp-controller="Profile" class="btn btn-lg btn-primary" asp-route-userId="@Model.UserId">Удалить пользователя</a>*@
+        </div>
+        <hr color="black" />
+        <br />
+        <div>
+            <input type="submit" value="Сохранить изменения" class="btn btn-lg btn-primary" />
+        </div>
+    </div>
+</form>
+

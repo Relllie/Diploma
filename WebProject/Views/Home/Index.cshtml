@@ -1,0 +1,21 @@
+﻿@using WebProject.Domain.Models.Books
+@model IEnumerable<Book>
+
+<head>
+    <title>Main Page</title>
+</head>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/Index.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<form asp-action="Index" asp-controller="Home" asp-anti-forgery="true">
+    <h2>Список новых книг</h2>
+    <div class="row">
+                @foreach (Book b in Model)
+                {
+                        <a class="col-md-4" asp-action="Book" asp-controller="Books" asp-route-bookID="@b.BookId">
+                            <img src="@Url.Content(b.BookCoverPath)" height="200">
+                            <div>@b.BookTitle</div>
+                        </a>
+                }
+    </div>
+</form>

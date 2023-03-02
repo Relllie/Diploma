@@ -1,0 +1,28 @@
+﻿@model WebProject.Models.ProfileViewModel
+
+<h2>Ваш профиль</h2>
+
+<form asp-action="Profile" asp-controller="Profile" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <table>
+        <tr>
+            <td>
+                <img src="@Url.Content(Model.AvatarPath)" width="150" class="bg-transparent img-circle" >
+            </td>
+
+            <td>
+                <div>Фамилия: @Model.UserSurName</div>
+                <div>Имя: @Model.UserName</div>
+                @if (Model.MiddleName != null)
+                {<div>Отчество: @Model.MiddleName</div>}
+                @if (Model.StudentIDNumber != null)
+                {<div>Номер студ. билета: @Model.StudentIDNumber</div>}
+                <div>Почта: @Model.Email</div>
+                <div>Дата регистрации: @Model.RegistrationDate</div>
+                <div>Последний доступ к сайту: @Model.LastSiteAccessDate</div>
+                <div><a asp-action="ListOfTakenBooks" asp-controller="Books" asp-route-email="@Model.Email">Список взятых книг</a></div>
+            </td>
+        </tr>
+    </table>
+    <a asp-action="EditProfile" asp-controller="Profile" class="btn btn-lg btn-primary">Редактировать профиль</a>
+</form>

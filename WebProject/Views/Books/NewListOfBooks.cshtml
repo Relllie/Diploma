@@ -1,0 +1,19 @@
+﻿@model WebProject.Models.Book.NewListOfBooks
+
+<form asp-action="NewListOfBooks" asp-controller="Books" asp-anti-forgery="true" enctype="multipart/form-data">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <h1 class="h3 mb-3 font-weight-normal">Добавление списка новых книг</h1>
+        <div>
+            <label asp-for="excelFile" class="col-form-label-lg">Выберите PDF-версию книги</label><br />
+            <input asp-for="excelFile" type="file" class="form-control-file" onchange="readURL(this);" accept=".xlsx" />
+        </div>
+        <div>
+            <input type="submit" value="Добавить" class="btn btn-lg btn-primary" />
+        </div>
+        @if (ViewBag.NewListOfBooks != null)
+        {
+            <label>Добавленные книги</label>
+        }
+    </div>
+</form>

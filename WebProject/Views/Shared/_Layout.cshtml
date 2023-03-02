@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body class="div-body bg-image"
+         style="background-image: url('https://phonoteka.org/uploads/posts/2021-04/1619693695_32-phonoteka_org-p-biblioteka-kartinki-foni-dlya-prezentatsii-35.jpg '); height: 100vh">
+
+        <header class="blog-header py-3">
+            <div class="container">
+                <ul class="bg-transparent user-links wht-list">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="entry bg-transparent">
+                            <a class="bg-transparent btn btn-sm btn-outline-secondary" asp-area="" asp-controller="Profile" asp-action="Login">Войти</a>
+                        </li>
+                        <li class="reg bg-transparent">
+                            <a class="bg-transparent btn btn-sm btn-outline-secondary" asp-area="" asp-controller="Profile" asp-action="Register">Зарегистрироваться</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="profile bg-transparent">
+                            <a class="btn btn-sm btn-outline-secondary" asp-area="" asp-controller="Profile" asp-action="Profile"><img src="~/files/person.png" /> Профиль</a>
+                        </li>
+                        <li class="exit bg-transparent">
+                            <a class="btn btn-sm btn-outline-secondary" asp-area="" asp-controller="Profile" asp-action="Exit">Выйти</a>
+                        </li>
+                    }
+                </ul>
+                <div class="bg-transparent logo">
+                    <a class="background-color: #fff;" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/files/logo.png" alt="Онлайн-библиотека" height="50" />
+                    </a>
+                </div>
+            </div>
+        </header>
+
+
+        <div class="container">
+            <div class="nav-scroller py-1 mb-2">
+                <nav class="nav d-flex justify-content-between">
+                    @if (User.IsInRole("Администратор"))
+                    {
+                        <a class="p-2 link-secondary" asp-area="" asp-controller="Profile" asp-action="ListOfUsers">Пользователи</a>
+                        <a class="p-2 link-secondary" asp-area="" asp-controller="Books" asp-action="ListOfBooksForRent">Список книг на выдачу</a>
+                    }
+                    <a class="p-2 link-secondary" asp-area="" asp-controller="Books" asp-action="Genres">Жанры</a>
+                    <a class="p-2 link-secondary" asp-area="" asp-controller="Books" asp-action="ListOfBooks" asp-route-pageNumber="1">Книги</a>
+                    <a class="p-2 link-secondary" asp-area="" asp-controller="Books" asp-action="BooksSearch">Поиск книг</a>
+                </nav>
+            </div>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top text-muted">
+            <div class="container">
+                &copy; 2022 - Online-Biblio
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

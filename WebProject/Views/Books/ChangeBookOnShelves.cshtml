@@ -1,0 +1,28 @@
+﻿@model WebProject.Domain.Models.Books.BooksOnShelves
+
+<form asp-action="ChangeBookOnShelves" asp-controller="Books" asp-anti-forgery="true" enctype="multipart/form-data">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        @Html.HiddenFor(id => Model.BookOnShelfID)
+        @Html.HiddenFor(id => Model.BookId)
+        <div>
+            <label asp-for="BookCaseNumber" class="col-form-label-lg">Номер шкафа</label><br />
+            <input type="text" asp-for="BookCaseNumber" class="form-control-lg" value="@Model.BookCaseNumber" />
+            <span asp-validation-for="BookCaseNumber" />
+        </div>
+        <div>
+            <label asp-for="ShelfNumber" class="col-form-label-lg">Номер полки</label><br />
+            <input type="text" asp-for="ShelfNumber" class="form-control-lg" value="@Model.ShelfNumber" />
+            <span asp-validation-for="ShelfNumber" />
+        </div>
+            <label asp-for="IsAvailable" class="col-form-label-lg">Находится в библиотеке (не выдана на руки)</label>
+            <input asp-for="IsAvailable" type="checkbox" />
+            <span asp-validation-for="IsAvailable" />
+        <hr color="black" />
+        <br />
+        <div>
+            <input type="submit" value="Сохранить изменения" class="btn btn-lg btn-primary" />
+        </div>
+    </div>
+</form>
+

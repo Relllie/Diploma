@@ -1,0 +1,30 @@
+﻿@model WebProject.Models.LoginModel
+@{ Layout = null;}
+
+<head>
+    <title>Login</title>
+</head>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/Signin.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<body class="text-center body-signin body">
+    <form asp-action="Login" asp-controller="Profile" asp-anti-forgery="true" class="form-signin">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <div>
+            <h1 class="h3 mb-3 font-weight-normal">Вход на сайт</h1>
+            <div class="form-group">
+                <input type="email" asp-for="Email" placeholder="Логин:" class="form-control" />
+                <span asp-validation-for="Email" />
+            </div>
+            <div class="form-group">
+                <input type="password" asp-for="Password" placeholder="Пароль:" class="form-control" />
+                <span asp-validation-for="Password" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Войти" class="btn btn-lg btn-primary btn-block" />
+                <a asp-action="Register" asp-controller="Profile" class="btn btn-lg btn-primary btn-block">Регистрация</a>
+                <a asp-action="Index" asp-controller="Home" class="btn">На главную</a>
+            </div>
+        </div>
+    </form>
+</body>

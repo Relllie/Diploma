@@ -1,0 +1,45 @@
+﻿@model WebProject.Models.Book.NewGenre
+
+<form asp-action="NewGenre" asp-controller="Books" asp-anti-forgery="true" enctype="multipart/form-data">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <h1 class="h3 mb-3 font-weight-normal">Создание нового жанра</h1>
+        <div>
+            <label asp-for="GenreName" class="col-form-label-lg">Введите название жанра*</label><br />
+            <input type="text" asp-for="GenreName" class="form-control-lg"/>
+            <span asp-validation-for="GenreName" />
+        </div>
+        <div>
+            <label asp-for="IsSubGenre" class="col-form-label-lg">Является ли поджанром*</label><br />
+            <input type="checkbox" asp-for="IsSubGenre" class="form-control-lg" onclick="toggleInput()" id="subGenre"/>
+            <span asp-validation-for="IsSubGenre" />
+        </div>
+        <div hidden id="subGenreSelect">
+            <label asp-for="MainGenre" class="col-form-label-lg">Главный жанр</label><br />
+            <select asp-for="MainGenre">
+                @foreach (var genre in ViewBag.Genres)
+                {
+                    <option value="@genre.GenreName">@genre.GenreName</option>
+                }
+            </select>
+        </div>
+        <br />
+        <label>* - обязательные поля</label>
+        <bt />
+        <div>
+            <input type="submit" value="Добавить" class="btn btn-lg btn-primary" />
+        </div>
+    </div>
+</form>
+<script>
+    function toggleInput() {
+        var checkBox = document.getElementById('subGenre');
+        var Select = document.getElementById('subGenreSelect');
+        if (checkBox.checked == true) {
+            Select.hidden = false;
+        }
+        else {
+            Select.hidden = true;
+        }
+}
+</script>

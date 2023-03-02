@@ -1,0 +1,36 @@
+﻿@using WebProject.Domain.Models.Books
+@model IEnumerable<TakenBooks>
+
+
+
+<form asp-action="ListOfTakenBooks" asp-controller="Books" asp-anti-forgery="true">
+    <h2>Список взятых книг</h2>
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    @if (Model != null)
+    {
+        @foreach (TakenBooks b in Model)
+        {
+            <table>
+                <tr>
+                    <td>
+                        <div>Название: @b.Book.BookTitle</div>
+                        <div>Дата взятия: @b.DateOfTaking</div>
+                        <div>
+                            Возвращена:
+                            @if (b.Returned)
+                            {
+                                <label>Да</label>
+                            }
+                            else
+                            {
+                                <label>Нет</label>
+                            }
+                        </div>
+                        
+                    </td>
+                </tr>
+            </table>
+            <br />
+        }
+    }
+</form>

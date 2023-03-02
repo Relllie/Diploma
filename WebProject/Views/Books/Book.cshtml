@@ -1,0 +1,44 @@
+﻿@model WebProject.Domain.Models.Books.Book
+
+<h2>@Model.BookTitle</h2>
+<form asp-action="Book" asp-controller="Books" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <table>
+        <tr>
+            <td>
+                <img src="@Url.Content(Model.BookCoverPath)" width="250">
+            </td>
+
+            <td>
+                <div>Автор: @Model.BookAuthor</div>
+                @if (Model.Genre != null)
+                {
+                    <div>Жанр: @Model.Genre.GenreName</div>
+                }
+                <br />
+                @if (User.HasClaim(x => x.Value == "True"))
+                {
+                    if (Model.BookPDFPath != string.Empty)
+                    {
+                        <div>PDF:<a asp-action="GetBook" asp-controller="Books" asp-route-bookID="@Model.BookId">Скачать</a></div>
+                    }
+                    <div>Забронировать книгу:<a asp-action="RentBook" asp-controller="Books" asp-route-bookID="@Model.BookId">Забронировать</a></div>
+
+                    @if (ViewBag.QRCode != null)
+                    {
+                        <div>QRCode:<br /> <img src="@String.Format(" data:image/png;base64,{0} ", Convert.ToBase64String(ViewBag.QRCode))" width="150" /></div>
+                    }
+                }
+                @if (User.IsInRole("Администратор"))
+                {
+                    <div>Изменить данные книги:<a asp-action="ChangeBook" asp-controller="Books" asp-route-bookID="@Model.BookId">Перейти</a></div>
+
+                    <div>Добавить/Изменить расположение книги:<a asp-action="ChangeBookOnShelves" asp-controller="Books" asp-route-bookID="@Model.BookId">Перейти</a></div>
+
+                    <div>Удалить книгу:<a asp-action="DeleteBook" asp-controller="Books" asp-route-bookID="@Model.BookId">Удалить</a></div>
+                }
+            </td>
+        </tr>
+    </table>
+
+</form>

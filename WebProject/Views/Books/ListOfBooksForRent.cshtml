@@ -1,0 +1,40 @@
+﻿@using WebProject.Domain.Models.Books
+@model IEnumerable<TakenBooks>
+
+
+
+
+<form asp-action="ListOfBooksForRent" asp-controller="Books" asp-anti-forgery="true">
+    <h2>Список выданных книг</h2>
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    @foreach (TakenBooks b in Model)
+    {
+        <a asp-action="Book" asp-controller="Books" asp-route-bookID="@b.Book.BookId">
+            <table>
+                <tr>
+                    <td>
+                        <img src="@Url.Content(b.Book.BookCoverPath)" width="100">
+                    </td>
+                    <td>
+                        <div>Название: @b.Book.BookTitle</div>
+                        <div>Автор: @b.Book.BookAuthor</div>
+                        <div></div>
+                        <div>
+                            Возвращена:
+                            @if (b.Returned)
+                            {
+                                <label>Да</label>
+                            }
+                            else
+                            {
+                                <label>Нет</label>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </a>
+        <button asp-controller="Books" asp-action="ListOfBooksForRent" asp-route-bookId="@b.TakenBooksId">Возвращено</button>
+        <br />
+    }
+</form>

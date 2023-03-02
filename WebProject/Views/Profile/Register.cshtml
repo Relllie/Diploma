@@ -1,0 +1,55 @@
+﻿@model WebProject.Models.RegisterModel
+
+<form asp-action="Register" asp-controller="Profile" asp-anti-forgery="true" enctype="multipart/form-data">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+        <div>
+            <label asp-for="SurName" class="col-form-label-lg">Введите фамилию*</label><br />
+            <input type="text" asp-for="SurName" class="form-control-lg" />
+            <span asp-validation-for="SurName" />
+        </div>
+        <div>
+            <label asp-for="Name" class="col-form-label-lg">Введите имя*</label><br />
+            <input type="text" asp-for="Name" class="form-control-lg" />
+            <span asp-validation-for="Name" />
+        </div>
+        <div>
+            <label asp-for="MiddleName" class="col-form-label-lg">Введите отчество</label><br />
+            <input type="text" asp-for="MiddleName" class="form-control-lg" />
+            <span asp-validation-for="MiddleName" />
+        </div>
+        <div>
+            <label asp-for="StudentIDNumber" class="col-form-label-lg">Введите номер студенческого билета</label><br />
+            <input type="number" min="1" asp-for="StudentIDNumber" class="form-control-lg" />
+            <span asp-validation-for="StudentIDNumber" />
+        </div>
+        <div>
+            <label asp-for="Email" class="col-form-label-lg">Введите Email*</label><br />
+            <input type="email" asp-for="Email" class="form-control-lg" />
+            <span asp-validation-for="Email" />
+        </div>
+        <div>
+            <label asp-for="Password" class="col-form-label-lg">Введите пароль*</label><br />
+            <input asp-for="Password"  type="password" class="form-control-lg" />
+            <span asp-validation-for="Password" />
+        </div>
+        <div>
+            <label asp-for="ConfirmPassword" class="col-form-label-lg">Повторите пароль*</label><br />
+            <input asp-for="ConfirmPassword" type="password" class="form-control-lg" />
+            <span asp-validation-for="ConfirmPassword" />
+        </div>
+        <div>
+            <label asp-for="Avatar" class="col-form-label-lg">Выберите аватар</label><br />
+            <input asp-for="Avatar" type="file" class="form-control-file" onchange="readURL(this, '#avatar');" accept=".jpg,.jpeg,.png" />
+            <span asp-validation-for="Avatar" />
+            <img class="img-thumbnail" style="min-width:100px;" id="avatar"/>
+        </div>
+        <br />
+        <label >* - обязательные поля</label>
+        <bt />
+        <div>
+            <input type="submit" value="Регистрация" class="btn btn-lg btn-primary" />
+        </div>
+    </div>
+</form>

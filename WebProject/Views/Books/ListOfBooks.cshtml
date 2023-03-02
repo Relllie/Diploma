@@ -1,0 +1,54 @@
+﻿@using WebProject.Domain.Models.Books
+@model IEnumerable<Book>
+
+
+
+<form asp-action="ListOfBooks" asp-controller="Books" asp-anti-forgery="true">
+    @if (User.IsInRole("Администратор") || User.IsInRole("Библиотекарь"))
+    {
+        <div class="form-group">
+            <a asp-action="NewBook" asp-controller="Books" class="btn btn-lg btn-primary">Добавить книгу</a>
+            <a asp-action="NewListOfBooks" asp-controller="Books" class="btn btn-lg btn-primary">Добавить книги из Excel документа</a>
+        </div>
+    }
+    <h2>Список книг</h2>
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    @foreach (Book b in Model)
+    {
+        <a asp-action="Book" asp-controller="Books" asp-route-bookID="@b.BookId">
+            <table>
+                <tr>
+                    <td>
+                        <img src="@Url.Content(b.BookCoverPath)" width="100">
+                    </td>
+                    <td>
+                        <div>Название: @b.BookTitle</div>
+                        <div>Автор: @b.BookAuthor</div>
+                        @if (b.Genre != null)
+                        {
+                        <div>Жанр: @b.Genre.GenreName</div>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </a>
+        <br />
+    }
+    @if (ViewBag.PageNumber <= 1)
+    {
+        <label>Предыдущая</label>
+    }
+    else
+    {
+        <a asp-action="ListOfBooks" asp-controller="Books" asp-route-pageNumber="@(ViewBag.PageNumber - 1)">Предыдущая</a>
+    }
+    @if (ViewBag.PageNumber >= ViewBag.MaxNumber)
+    {
+        <label>Следующая</label>
+    }
+    else
+    {
+        <a asp-action="ListOfBooks" asp-controller="Books" asp-route-pageNumber="@(ViewBag.PageNumber + 1)">Следующая</a>
+    }
+
+</form>

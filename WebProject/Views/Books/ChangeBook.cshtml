@@ -1,0 +1,52 @@
+﻿@model WebProject.Models.Book.ChangedBook
+
+<form asp-action="ChangeBook" asp-controller="Books" asp-anti-forgery="true" enctype="multipart/form-data">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        @Html.HiddenFor(id => Model.BookId)
+        <div>
+            <label asp-for="BookTitle" class="col-form-label-lg">Название книги</label><br />
+            <input type="text" asp-for="BookTitle" class="form-control-lg" value="@Model.BookTitle" />
+            <span asp-validation-for="BookTitle" />
+        </div>
+        <div>
+            <label asp-for="BookAuthor" class="col-form-label-lg">Автор книги</label><br />
+            <input type="text" asp-for="BookAuthor" class="form-control-lg" value="@Model.BookAuthor" />
+            <span asp-validation-for="BookAuthor" />
+        </div>
+        <div>
+            <label asp-for="Genre" class="col-form-label-lg">Выберите жанр*</label><br />
+            <select asp-for="Genre">
+                @foreach (var el in ViewBag.Genres)
+                {
+                    @if (el.GenreName == Model.Genre)
+                    {
+                        <option value="@el.GenreName" selected>@el.GenreName</option>
+                    }
+                    else
+                    {
+                        <option value="@el.GenreName">@el.GenreName</option>
+                    }
+                }
+            </select>
+        </div>
+        <div>
+            <label asp-for="BookCoverPath" class="col-form-label-lg">Выберите обложку книги</label><br />
+            <input asp-for="BookCoverPath" type="file" class="form-control-file" onchange="readURL(this);" accept=".jpg,.jpeg,.png" />
+            <span asp-validation-for="BookCoverPath" />
+            <img class="img-thumbnail" id="avatar" width="150" />
+        </div>
+        <div>
+            <label asp-for="BookPDFPath" class="col-form-label-lg">Выберите PDF-версию книги</label><br />
+            <input asp-for="BookPDFPath" type="file" class="form-control-file" onchange="readURL(this);" accept=".pdf" />
+            <span asp-validation-for="BookPDFPath" />
+            <img class="img-thumbnail" id="avatar" width="150" />
+        </div>
+        <hr color="black" />
+        <br />
+        <div>
+            <input type="submit" value="Сохранить изменения" class="btn btn-lg btn-primary" />
+        </div>
+    </div>
+</form>
+

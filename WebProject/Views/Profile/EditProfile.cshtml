@@ -1,0 +1,49 @@
+﻿@model WebProject.Models.EditProfile
+
+<h2>Редактирование профиля</h2>
+<form asp-action="EditProfile" asp-controller="Profile" asp-anti-forgery="true"  enctype="multipart/form-data">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <table>
+        <tr>
+            <td>
+                <div>
+                    <label asp-for="SurName" class="col-form-label-lg">Введите свою фамилию</label><br />
+                    <input type="text" asp-for="SurName" class="form-control-lg" />
+                    <span asp-validation-for="SurName" />
+                </div>
+                <div>
+                    <label asp-for="Name" class="col-form-label-lg">Введите имя</label><br />
+                    <input type="text" asp-for="Name" class="form-control-lg" />
+                    <span asp-validation-for="Name" />
+                </div>
+                <div>
+                    <label asp-for="MiddleName" class="col-form-label-lg">Введите отчество</label><br />
+                    <input type="text" asp-for="MiddleName" class="form-control-lg" />
+                    <span asp-validation-for="MiddleName" />
+                </div>
+                @if (Model.StudentIDNumber != null)
+                {
+                    <div>
+                        <label asp-for="StudentIDNumber" class="col-form-label-lg">Введите номер студенческого билета</label><br />
+                        <input type="text" asp-for="StudentIDNumber" class="form-control-lg" />
+                        <span asp-validation-for="StudentIDNumber" />
+                    </div>
+                }
+
+                <div>
+                    <label asp-for="Email" class="col-form-label-lg">Введите почту</label><br />
+                    <input type="text" asp-for="Email" class="form-control-lg" />
+                    <span asp-validation-for="Email" />
+                </div>
+
+                <div>
+                    <label asp-for="Avatar" class="col-form-label-lg">Выберите аватар</label><br />
+                    <input asp-for="Avatar" type="file" class="form-control-file" onchange="readURL(this, '#avatar');" accept=".jpg,.jpeg,.png" />
+                    <span asp-validation-for="Avatar" />
+                    <img class="img-thumbnail" id="avatar" width="150" />
+                </div>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Сохранить" class="btn btn-lg btn-primary" />
+</form>

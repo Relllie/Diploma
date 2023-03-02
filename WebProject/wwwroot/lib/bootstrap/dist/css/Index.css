@@ -1,0 +1,22 @@
+﻿#mainContent {
+    margin: 10px 10px;
+}
+#main {
+    margin: 30px;
+    position: relative;
+}
+#tiles {
+    list-style-type: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+    #tiles li .block {
+        padding: 15px;
+    }
+        #tiles li .block .header {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.8em;
+            font-weight: 400;
+            color: #535353;
+        }

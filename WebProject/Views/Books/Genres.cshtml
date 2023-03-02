@@ -1,0 +1,36 @@
+﻿@using WebProject.Models.Book
+@using WebProject.Domain.Models.Books
+@model IEnumerable<GenresViewModel>
+<form asp-action="Genres" asp-controller="Books" asp-anti-forgery="true">
+    @if (User.IsInRole("Администратор") || User.IsInRole("Библиотекарь"))
+    {
+        <a asp-action="NewGenre" asp-controller="Books" class="btn btn-lg btn-primary">Добавить жанр</a>
+    }
+<div class="row">
+    @foreach (GenresViewModel GVM in Model)
+    {
+    <div class="col-md-3">
+        <a asp-action="ListOfBooks" asp-controller="Books" class="btn-link col-md-3" asp-route-genreID="@GVM.MainGenre.GenreID" asp-route-pageNumber="1">@GVM.MainGenre.GenreName</a>
+        @if ((User.IsInRole("Администратор") || User.IsInRole("Библиотекарь")) && GVM.SubGenres.Count == 0)
+        {
+            <a asp-action="DeleteGenre" asp-controller="Books" class="btn-link" asp-route-genreID="@GVM.MainGenre.GenreID">Удалить</a>
+        }
+
+        <div class="col-md-12">
+            <ul>
+                @foreach (Genre g in GVM.SubGenres)
+                {
+                    <li>
+                        <a asp-action="ListOfBooks" asp-controller="Books" class="btn-link" asp-route-genreID="@g.GenreID" asp-route-pageNumber="1"> @g.GenreName</a>
+                    </li>
+                    if (User.IsInRole("Администратор") || User.IsInRole("Библиотекарь"))
+                    {
+                        <a asp-action="DeleteGenre" asp-controller="Books" class="btn-link" asp-route-genreID="@g.GenreID">Удалить</a>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    }
+</div>
+    </form>
